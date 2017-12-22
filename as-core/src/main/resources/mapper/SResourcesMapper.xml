@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.as.mapper.SResourcesMapper">
+  <resultMap id="BaseResultMap" type="com.as.model.SResources">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="resUrl" jdbcType="VARCHAR" property="resurl" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="parentId" jdbcType="INTEGER" property="parentid" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+  </resultMap>
+
+  <select id="queryAll" resultType="com.as.model.SResources">
+      	SELECT id,name,parentId,resUrl,type,sort
+		FROM s_resources
+		ORDER BY sort ASC
+  </select>
+
+    <select id="loadUserResources" parameterType="java.util.HashMap" resultType="com.as.model.SResources">
+        SELECT re.id,re.name,re.parentId,re.resUrl
+        FROM s_resources re LEFT JOIN s_role_resources rr
+        ON re.id = rr.resourcesId
+        LEFT JOIN s_user_role ur
+        ON rr.roleId =ur.roleId
+        <where>
+        <if test="userid != null">
+         and ur.userId=#{userid}
+        </if>
+        <if test="type != null">
+            AND re.type= #{type}
+        </if>
+        
+        </where>
+        GROUP BY re.id
+        ORDER BY re.sort ASC
+    </select>
+    <select id="loadUserResources2" parameterType="com.as.model.vo.SResourcesVo" resultType="com.as.model.vo.SResourcesVo">
+        SELECT re.id,re.name,re.parentId,re.resUrl
+        FROM s_resources re LEFT JOIN s_role_resources rr
+        ON re.id = rr.resourcesId
+        LEFT JOIN s_user_role ur
+        ON rr.roleId =ur.roleId
+        <where>
+        <if test="userid != null">
+         and ur.userId=#{userid}
+        </if>
+        <if test="type != null">
+            AND re.type= #{type}
+        </if>
+        <if test="parentid != null">
+            AND re.parentid= #{parentid}
+        </if>
+        
+        </where>
+        GROUP BY re.id
+        ORDER BY re.sort ASC
+    </select>
+
+    <select id="queryResourcesListWithSelected" parameterType="int" resultType="com.as.model.SResources">
+        SELECT re.id,re.name,re.parentId,re.resUrl,re.type,
+		(CASE WHEN EXISTS(SELECT 1
+		FROM s_role_resources rr WHERE rr.resourcesId=re.id AND rr.roleId=#{rid})
+		THEN 'true' ELSE 'false' END) AS checked
+		FROM s_resources re
+		ORDER BY re.sort ASC
+    </select>
+</mapper>

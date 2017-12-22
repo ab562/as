@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.as.mapper.DDatadictMapper">
+  <sql id="Base_Column_List">
+    id, pid, key, val, val2, depict, status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultType="com.as.model.DDatadict">
+    select 
+    <include refid="Base_Column_List" />
+    from d_datadict
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from d_datadict
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.as.model.DDatadict">
+    insert into d_datadict (id, pid, key, val, 
+      val2, depict, status
+      )
+    values (#{id,jdbcType=BIGINT}, #{pid,jdbcType=BIGINT}, #{key,jdbcType=VARCHAR}, #{val,jdbcType=VARCHAR}, 
+      #{val2,jdbcType=VARCHAR}, #{depict,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.as.model.DDatadict">
+    insert into d_datadict
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="key != null">
+        key,
+      </if>
+      <if test="val != null">
+        val,
+      </if>
+      <if test="val2 != null">
+        val2,
+      </if>
+      <if test="depict != null">
+        depict,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="key != null">
+        #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="val != null">
+        #{val,jdbcType=VARCHAR},
+      </if>
+      <if test="val2 != null">
+        #{val2,jdbcType=VARCHAR},
+      </if>
+      <if test="depict != null">
+        #{depict,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.as.model.DDatadict">
+    update d_datadict
+    <set>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="key != null">
+        key = #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="val != null">
+        val = #{val,jdbcType=VARCHAR},
+      </if>
+      <if test="val2 != null">
+        val2 = #{val2,jdbcType=VARCHAR},
+      </if>
+      <if test="depict != null">
+        depict = #{depict,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.as.model.DDatadict">
+    update d_datadict
+    set pid = #{pid,jdbcType=BIGINT},
+      key = #{key,jdbcType=VARCHAR},
+      val = #{val,jdbcType=VARCHAR},
+      val2 = #{val2,jdbcType=VARCHAR},
+      depict = #{depict,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.as.mapper.TTaskMapper">
+  <sql id="Base_Column_List">
+    id, work_type, work_time, code1, code2, work_status, errormsg, create_date, update_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultType="com.as.model.TTask">
+    select 
+    <include refid="Base_Column_List" />
+    from t_task
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_task
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.as.model.TTask">
+    insert into t_task (id, work_type, work_time, 
+      code1, code2, work_status, 
+      errormsg, create_date, update_date
+      )
+    values (#{id,jdbcType=BIGINT}, #{workType,jdbcType=VARCHAR}, #{workTime,jdbcType=TIMESTAMP}, 
+      #{code1,jdbcType=VARCHAR}, #{code2,jdbcType=VARCHAR}, #{workStatus,jdbcType=VARCHAR}, 
+      #{errormsg,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.as.model.TTask">
+    insert into t_task
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="workType != null">
+        work_type,
+      </if>
+      <if test="workTime != null">
+        work_time,
+      </if>
+      <if test="code1 != null">
+        code1,
+      </if>
+      <if test="code2 != null">
+        code2,
+      </if>
+      <if test="workStatus != null">
+        work_status,
+      </if>
+      <if test="errormsg != null">
+        errormsg,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="workType != null">
+        #{workType,jdbcType=VARCHAR},
+      </if>
+      <if test="workTime != null">
+        #{workTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="code1 != null">
+        #{code1,jdbcType=VARCHAR},
+      </if>
+      <if test="code2 != null">
+        #{code2,jdbcType=VARCHAR},
+      </if>
+      <if test="workStatus != null">
+        #{workStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="errormsg != null">
+        #{errormsg,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.as.model.TTask">
+    update t_task
+    <set>
+      <if test="workType != null">
+        work_type = #{workType,jdbcType=VARCHAR},
+      </if>
+      <if test="workTime != null">
+        work_time = #{workTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="code1 != null">
+        code1 = #{code1,jdbcType=VARCHAR},
+      </if>
+      <if test="code2 != null">
+        code2 = #{code2,jdbcType=VARCHAR},
+      </if>
+      <if test="workStatus != null">
+        work_status = #{workStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="errormsg != null">
+        errormsg = #{errormsg,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.as.model.TTask">
+    update t_task
+    set work_type = #{workType,jdbcType=VARCHAR},
+      work_time = #{workTime,jdbcType=TIMESTAMP},
+      code1 = #{code1,jdbcType=VARCHAR},
+      code2 = #{code2,jdbcType=VARCHAR},
+      work_status = #{workStatus,jdbcType=VARCHAR},
+      errormsg = #{errormsg,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

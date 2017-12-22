@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.as.mapper.SUserLogMapper">
+  <resultMap id="BaseResultMap" type="com.as.model.SUserLog">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="suser_id" jdbcType="BIGINT" property="suserId" />
+    <result column="bid" jdbcType="BIGINT" property="bid" />
+    <result column="lastlogin_time" jdbcType="TIMESTAMP" property="lastloginTime" />
+    <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
+    <result column="devicetoken" jdbcType="VARCHAR" property="devicetoken" />
+    <result column="user_type" jdbcType="VARCHAR" property="userType" />
+    <result column="user_agent" jdbcType="VARCHAR" property="userAgent" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, suser_id, bid, lastlogin_time, login_ip, devicetoken, user_type, user_agent
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from s_user_log
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from s_user_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.as.model.SUserLog">
+    insert into s_user_log (id, suser_id, bid, 
+      lastlogin_time, login_ip, devicetoken, 
+      user_type, user_agent)
+    values (#{id,jdbcType=BIGINT}, #{suserId,jdbcType=BIGINT}, #{bid,jdbcType=BIGINT}, 
+      #{lastloginTime,jdbcType=TIMESTAMP}, #{loginIp,jdbcType=VARCHAR}, #{devicetoken,jdbcType=VARCHAR}, 
+      #{userType,jdbcType=VARCHAR}, #{userAgent,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.as.model.SUserLog">
+    insert into s_user_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="suserId != null">
+        suser_id,
+      </if>
+      <if test="bid != null">
+        bid,
+      </if>
+      <if test="lastloginTime != null">
+        lastlogin_time,
+      </if>
+      <if test="loginIp != null">
+        login_ip,
+      </if>
+      <if test="devicetoken != null">
+        devicetoken,
+      </if>
+      <if test="userType != null">
+        user_type,
+      </if>
+      <if test="userAgent != null">
+        user_agent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="suserId != null">
+        #{suserId,jdbcType=BIGINT},
+      </if>
+      <if test="bid != null">
+        #{bid,jdbcType=BIGINT},
+      </if>
+      <if test="lastloginTime != null">
+        #{lastloginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginIp != null">
+        #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="devicetoken != null">
+        #{devicetoken,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="userAgent != null">
+        #{userAgent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.as.model.SUserLog">
+    update s_user_log
+    <set>
+      <if test="suserId != null">
+        suser_id = #{suserId,jdbcType=BIGINT},
+      </if>
+      <if test="bid != null">
+        bid = #{bid,jdbcType=BIGINT},
+      </if>
+      <if test="lastloginTime != null">
+        lastlogin_time = #{lastloginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginIp != null">
+        login_ip = #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="devicetoken != null">
+        devicetoken = #{devicetoken,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        user_type = #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="userAgent != null">
+        user_agent = #{userAgent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.as.model.SUserLog">
+    update s_user_log
+    set suser_id = #{suserId,jdbcType=BIGINT},
+      bid = #{bid,jdbcType=BIGINT},
+      lastlogin_time = #{lastloginTime,jdbcType=TIMESTAMP},
+      login_ip = #{loginIp,jdbcType=VARCHAR},
+      devicetoken = #{devicetoken,jdbcType=VARCHAR},
+      user_type = #{userType,jdbcType=VARCHAR},
+      user_agent = #{userAgent,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
